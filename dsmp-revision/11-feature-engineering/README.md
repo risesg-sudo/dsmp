@@ -1,363 +1,364 @@
 # Feature Engineering - Comprehensive Revision Notes
 
 ## Overview
-Feature engineering is the process of transforming raw data into meaningful features that improve machine learning model performance. It's often considered the most important step in the ML pipeline.
+
+Feature engineering transforms raw data into meaningful features that improve machine learning model performance. This module covers all essential techniques with practical examples and best practices.
+
+## Module Structure
+
+### Categorical Encoding (8 files)
+
+Understanding how to convert categorical variables into numerical format is crucial for machine learning.
+
+1. **[encoding-overview.md](./encoding-overview.md)** - Start here for foundational concepts
+   - Types of categorical variables
+   - Decision framework overview
+   - When to use which encoding
+
+2. **[encoding-onehot.md](./encoding-onehot.md)** - Binary columns for each category
+   - Best for low cardinality (<10 categories)
+   - Works with all model types
+   - Handles nominal variables
+
+3. **[encoding-ordinal.md](./encoding-ordinal.md)** - Integer values based on order
+   - For ordinal variables with natural order
+   - Memory efficient (single column)
+   - Examples: education levels, ratings
+
+4. **[encoding-target.md](./encoding-target.md)** - Mean of target per category
+   - Handles high cardinality effectively
+   - Requires careful cross-validation
+   - Powerful but risk of overfitting
+
+5. **[encoding-binary.md](./encoding-binary.md)** - Binary digit encoding
+   - More compact than one-hot
+   - Good for moderate cardinality (10-100)
+   - Space-efficient alternative
+
+6. **[encoding-frequency.md](./encoding-frequency.md)** - Encode by popularity
+   - Simple and fast
+   - When frequency is informative
+   - Single column output
+
+7. **[encoding-comparison.md](./encoding-comparison.md)** - Compare all techniques
+   - Performance benchmarks
+   - Decision trees and tables
+   - Model-specific recommendations
+
+8. **[encoding-best-practices.md](./encoding-best-practices.md)** - Production-ready code
+   - Common mistakes to avoid
+   - Pipeline patterns
+   - Interview questions with answers
+
+### Missing Values (8 files)
+
+Learn how to handle incomplete data properly without introducing bias or data leakage.
+
+1. **[missing-overview.md](./missing-overview.md)** - Understanding missing data
+   - Impact on model performance
+   - Diagnostic techniques
+   - Decision framework
+
+2. **[missing-types.md](./missing-types.md)** - Types of missingness
+   - MCAR (Missing Completely At Random)
+   - MAR (Missing At Random)
+   - MNAR (Missing Not At Random)
+
+3. **[missing-simple-imputer.md](./missing-simple-imputer.md)** - Basic imputation
+   - Mean, median, mode strategies
+   - Constant value imputation
+   - When to use each
+
+4. **[missing-knn-imputer.md](./missing-knn-imputer.md)** - Neighbor-based imputation
+   - How KNN imputation works
+   - Choosing K value
+   - Healthcare data example
+
+5. **[missing-iterative-imputer.md](./missing-iterative-imputer.md)** - MICE method
+   - Multivariate imputation
+   - Iterative approach
+   - Advanced configurations
+
+6. **[missing-advanced-techniques.md](./missing-advanced-techniques.md)** - Specialized methods
+   - Indicator variables
+   - Time series methods
+   - Domain-specific approaches
+
+7. **[missing-comparison.md](./missing-comparison.md)** - Technique comparison
+   - Performance analysis
+   - When to use what
+   - Real-world scenarios
+
+8. **[missing-best-practices.md](./missing-best-practices.md)** - Production patterns
+   - Common pitfalls
+   - Pipeline integration
+   - Interview preparation
+
+### Feature Scaling & Outliers (9 files)
+
+Essential preprocessing for distance-based algorithms and handling extreme values.
+
+1. **[scaling-why-important.md](./scaling-why-important.md)** - Why scale features
+   - Algorithms that need scaling
+   - Visual demonstrations
+   - Impact on convergence
+
+2. **[scaling-standardscaler.md](./scaling-standardscaler.md)** - Z-score normalization
+   - Mean 0, standard deviation 1
+   - Most commonly used
+   - Customer segmentation example
+
+3. **[scaling-minmaxscaler.md](./scaling-minmaxscaler.md)** - Range normalization
+   - Scale to [0, 1] range
+   - Outlier sensitive
+   - Image processing applications
+
+4. **[scaling-robustscaler.md](./scaling-robustscaler.md)** - Outlier-resistant scaling
+   - Uses median and IQR
+   - Sensor data example
+   - When outliers are present
+
+5. **[scaling-normalizer.md](./scaling-normalizer.md)** - Row-wise scaling
+   - Scales individual samples
+   - Text document similarity
+   - L1, L2, Max norms
+
+6. **[outliers-detection-methods.md](./outliers-detection-methods.md)** - Finding outliers
+   - Z-score method
+   - IQR method
+   - Isolation Forest
+
+7. **[outliers-handling-strategies.md](./outliers-handling-strategies.md)** - Treating outliers
+   - Removal
+   - Capping (Winsorization)
+   - Transformation
+
+8. **[scaling-comparison-guide.md](./scaling-comparison-guide.md)** - Compare all scalers
+   - Decision framework
+   - Common mistakes
+   - Best practices
+
+9. **[scaling-interview-questions.md](./scaling-interview-questions.md)** - Interview prep
+   - 10 comprehensive Q&A
+   - Real examples with code
+   - When to use which scaler
+
+### Transformations (8 files)
+
+Transform skewed distributions to improve model performance.
+
+1. **[transformations-why-needed.md](./transformations-why-needed.md)** - Understanding skewness
+   - When to transform
+   - Measuring skewness
+   - Impact on models
+
+2. **[transformations-log.md](./transformations-log.md)** - Log transformation
+   - For right-skewed data
+   - House prices example
+   - Handling zeros and negatives
+
+3. **[transformations-square-root.md](./transformations-square-root.md)** - Moderate compression
+   - Less aggressive than log
+   - Website analytics example
+   - When to prefer over log
+
+4. **[transformations-box-cox.md](./transformations-box-cox.md)** - Optimal transformation
+   - Automatic lambda selection
+   - Only for positive data
+   - Sales forecasting example
+
+5. **[transformations-yeo-johnson.md](./transformations-yeo-johnson.md)** - Works with any data
+   - Handles zero and negative values
+   - Financial returns example
+   - Comparison with Box-Cox
+
+6. **[transformations-power-custom.md](./transformations-power-custom.md)** - Custom transformations
+   - PowerTransformer interface
+   - Domain-specific transformations
+   - Advanced configurations
+
+7. **[transformations-comparison-guide.md](./transformations-comparison-guide.md)** - Compare all methods
+   - Decision framework
+   - Common mistakes
+   - Best practices
+
+8. **[transformations-interview-questions.md](./transformations-interview-questions.md)** - Interview prep
+   - 10 comprehensive Q&A
+   - Practical examples
+   - When to use each method
+
+### Feature Construction (7 files)
+
+Create new features from existing ones to capture complex relationships.
+
+1. **[polynomial-features.md](./polynomial-features.md)** - Polynomial terms
+   - x², x³, etc.
+   - House price example
+   - Degree selection
+
+2. **[interaction-features.md](./interaction-features.md)** - Feature interactions
+   - x₁ × x₂ terms
+   - Marketing campaign example
+   - When interactions matter
+
+3. **[domain-specific-features.md](./domain-specific-features.md)** - Industry features
+   - Financial features (DTI, credit utilization)
+   - E-commerce features (AOV, CLV)
+   - Healthcare features (BMI, risk scores)
+
+4. **[temporal-features.md](./temporal-features.md)** - Time-based features
+   - Date extraction
+   - Cyclical encoding
+   - Lag and rolling features
+
+5. **[aggregation-features.md](./aggregation-features.md)** - Group-based aggregations
+   - Customer-level statistics
+   - Churn prediction example
+   - Transaction summaries
+
+6. **[feature-crosses.md](./feature-crosses.md)** - Categorical crosses
+   - Combining categories
+   - Ad click prediction
+   - When to use
+
+7. **[feature-construction-best-practices.md](./feature-construction-best-practices.md)** - Best practices
+   - Comparison of techniques
+   - Common mistakes
+   - Interview questions
+
+### Discretization (6 files)
+
+Convert continuous variables into categorical bins for interpretability and non-linear relationships.
+
+1. **[equal-width-binning.md](./equal-width-binning.md)** - Fixed-width bins
+   - Simple and interpretable
+   - Income segmentation example
+   - When to use
+
+2. **[equal-frequency-binning.md](./equal-frequency-binning.md)** - Quantile-based bins
+   - Equal samples per bin
+   - Customer spending example
+   - Handles skewed data
+
+3. **[custom-binning.md](./custom-binning.md)** - Domain-driven bins
+   - Age groups
+   - Medical thresholds
+   - Business rules
+
+4. **[kmeans-binning.md](./kmeans-binning.md)** - Clustering-based bins
+   - Data-driven approach
+   - Customer segmentation
+   - Encoding options
+
+5. **[decision-tree-binning.md](./decision-tree-binning.md)** - Supervised binning
+   - Optimal splits using trees
+   - House price example
+   - Credit risk application
+
+6. **[discretization-best-practices.md](./discretization-best-practices.md)** - Best practices
+   - Method comparison
+   - Common mistakes
+   - Interview questions
+
+## Quick Start Guide
+
+### For Beginners
+Start with these files in order:
+1. encoding-overview.md
+2. missing-overview.md
+3. scaling-why-important.md
+4. transformations-why-needed.md
+
+### For Interview Preparation
+Focus on these best practices and interview files:
+- encoding-best-practices.md
+- missing-best-practices.md
+- scaling-interview-questions.md
+- transformations-interview-questions.md
+- feature-construction-best-practices.md
+- discretization-best-practices.md
+
+### For Production Work
+Study these implementation guides:
+- All comparison-guide.md files
+- All best-practices.md files
+- Specific technique files for your use case
+
+## Feature Engineering Pipeline
+
+The typical order of operations:
 
 ```
-Raw Data → Feature Engineering → Better Features → Better Models
+1. Handle Missing Values
+   └─ Choose imputation strategy based on missingness type
+
+2. Encode Categorical Variables
+   └─ Choose encoding based on cardinality and model type
+
+3. Handle Outliers (if needed)
+   └─ Detect, then decide: remove, cap, or transform
+
+4. Transform Distributions (if skewed)
+   └─ Log, Box-Cox, or Yeo-Johnson
+
+5. Scale Features
+   └─ StandardScaler for most cases, RobustScaler with outliers
+
+6. Create New Features (optional)
+   └─ Polynomial, interactions, domain-specific
+
+7. Discretize (if needed)
+   └─ Bin continuous variables for interpretability
 ```
 
-## Navigation Guide
+## Decision Framework
 
-### 1. [Encoding Techniques](./encoding-techniques.md)
-Master all categorical encoding methods:
-- One-Hot Encoding
-- Ordinal Encoding
-- Target Encoding
-- Binary Encoding
-- Frequency Encoding
-- Mean Encoding
+### Choosing Encoding Method
+- Ordinal variable with clear order? → Ordinal Encoding
+- Low cardinality (<10)? → One-Hot Encoding
+- High cardinality (>10)? → Target or Frequency Encoding
+- Moderate cardinality (10-100)? → Binary Encoding
 
-**When to use**: Working with categorical variables (colors, cities, categories)
+### Choosing Imputation Method
+- MCAR with numerical data? → Mean/Median
+- MAR with patterns? → KNN or Iterative Imputer
+- MNAR? → Domain knowledge required
+- Missing indicator useful? → Add indicator variable
+
+### Choosing Scaler
+- Normal distribution, no outliers? → StandardScaler
+- Need [0,1] range? → MinMaxScaler
+- Outliers present? → RobustScaler
+- Row-wise scaling needed? → Normalizer
+
+### Choosing Transformation
+- Positive data, right-skewed? → Log transformation
+- Positive data, find optimal? → Box-Cox
+- Any data including negative? → Yeo-Johnson
+- Moderate skew? → Square Root
+
+## Key Takeaways
+
+1. Feature engineering often provides more improvement than algorithm tuning
+2. Always split data before engineering to prevent leakage
+3. Use sklearn Pipeline for reproducibility
+4. Document all transformations
+5. Test impact of each feature engineering step
+6. Consider computational cost in production
+
+## Resources
+
+Each file contains:
+- Clear explanations with intuition
+- Complete code examples
+- Real-world use cases
+- When to use guidance
+- Common pitfalls
+- Quick reference summaries
+- Navigation links
 
 ---
 
-### 2. [Missing Values Handling](./missing-values.md)
-Complete guide to imputation strategies:
-- Understanding MCAR, MAR, MNAR
-- SimpleImputer (mean, median, mode)
-- KNN Imputer
-- Iterative Imputer
-- Advanced techniques
+**Next Steps**: Start with [encoding-overview.md](./encoding-overview.md) or jump to specific topics based on your needs.
 
-**When to use**: Datasets with incomplete data (common in real-world scenarios)
-
----
-
-### 3. [Scaling and Outlier Handling](./scaling-outliers.md)
-Essential preprocessing techniques:
-- StandardScaler, MinMaxScaler, RobustScaler
-- Normalizer
-- IQR method, Z-score
-- Percentile capping
-
-**When to use**: Before model training, especially for distance-based algorithms
-
----
-
-### 4. [Feature Transformations](./transformations.md)
-Advanced transformation techniques:
-- Log transformation
-- Square Root transformation
-- Box-Cox transformation
-- Yeo-Johnson transformation
-- Power Transformer
-
-**When to use**: Handling skewed distributions, making data more normal
-
----
-
-### 5. [Feature Construction](./feature-construction.md)
-Creating new features from existing ones:
-- Polynomial features
-- Interaction terms
-- Domain-specific features
-- Feature crosses
-
-**When to use**: Capturing complex relationships between features
-
----
-
-### 6. [Discretization Techniques](./discretization.md)
-Converting continuous to categorical:
-- Equal-width binning
-- Quantile-based binning
-- Custom binning
-- K-means binning
-
-**When to use**: Simplifying continuous variables, handling non-linear relationships
-
----
-
-## Quick Reference: When to Use What?
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                   FEATURE ENGINEERING                       │
-│                      DECISION TREE                          │
-└─────────────────────────────────────────────────────────────┘
-
-Data Type?
-│
-├─ Categorical
-│  ├─ Ordinal (order matters) → Ordinal Encoding
-│  ├─ Nominal (no order)
-│  │  ├─ Low cardinality (<10) → One-Hot Encoding
-│  │  ├─ High cardinality (>10)
-│  │  │  ├─ Tree-based model → Target/Mean Encoding
-│  │  │  └─ Linear model → Frequency/Binary Encoding
-│  │
-│
-├─ Numerical
-│  ├─ Missing values? → See Missing Values Guide
-│  ├─ Outliers? → See Outlier Handling
-│  ├─ Skewed distribution? → Log/Box-Cox Transform
-│  ├─ Different scales? → StandardScaler/MinMaxScaler
-│  │
-│
-├─ Want to create new features?
-│  ├─ Polynomial relationships → PolynomialFeatures
-│  ├─ Interaction effects → Feature crosses
-│  └─ Domain knowledge → Custom features
-```
-
-## The Feature Engineering Pipeline
-
-```
-Step 1: Understand Data
-   ↓
-Step 2: Handle Missing Values
-   ↓
-Step 3: Encode Categorical Variables
-   ↓
-Step 4: Handle Outliers (optional)
-   ↓
-Step 5: Transform Distributions (if needed)
-   ↓
-Step 6: Scale Features
-   ↓
-Step 7: Create New Features (optional)
-   ↓
-Step 8: Final Feature Selection
-```
-
-## Common Real-World Scenarios
-
-### Scenario 1: Customer Churn Prediction
-```python
-Features to engineer:
-- Age → Bin into age groups
-- Income → Log transform (right-skewed)
-- City → Target encoding (high cardinality)
-- Usage_Hours → Polynomial features
-- Last_Purchase_Days → Interaction with Total_Purchases
-```
-
-### Scenario 2: House Price Prediction
-```python
-Features to engineer:
-- Area → Square root transform
-- Location → One-hot encoding
-- Age_of_House → Bin into categories
-- Area × Bedrooms → Interaction feature
-- Missing garage → Indicator variable
-```
-
-### Scenario 3: Credit Risk Assessment
-```python
-Features to engineer:
-- Salary → Robust scaling (outliers present)
-- Employment_Type → Ordinal encoding
-- Credit_History → Multiple imputation
-- Debt_to_Income → Custom feature (Debt/Income)
-- Late_Payments → Frequency encoding
-```
-
-## Key Metrics to Remember
-
-### Impact of Feature Engineering
-
-| Metric | Before FE | After FE | Improvement |
-|--------|-----------|----------|-------------|
-| Accuracy | 75% | 87% | +12% |
-| Training Time | 45s | 30s | -33% |
-| Model Complexity | High | Medium | Reduced |
-
-## Must-Know Concepts
-
-### 1. **Feature Scaling**
-- Required: KNN, SVM, Neural Networks, PCA, K-means
-- Not required: Tree-based models (Decision Trees, Random Forest, XGBoost)
-
-### 2. **Encoding Choice**
-- One-Hot: Low cardinality (< 10 categories)
-- Target: High cardinality + tree models
-- Ordinal: When order exists
-
-### 3. **Missing Value Strategy**
-- MCAR: Any imputation method
-- MAR: Advanced methods (KNN, Iterative)
-- MNAR: Domain knowledge required
-
-### 4. **Transformation Choice**
-- Positive data only: Log, Box-Cox
-- Any data: Yeo-Johnson, Square Root
-- Normal distribution: None needed
-
-## Interview Preparation
-
-### Top 10 Questions
-1. Difference between StandardScaler and MinMaxScaler?
-2. When to use Target Encoding vs One-Hot Encoding?
-3. How to handle missing values in time series?
-4. What is Box-Cox transformation and when to use it?
-5. How to detect and handle outliers?
-6. Explain the curse of dimensionality in One-Hot Encoding
-7. What is feature interaction and why is it important?
-8. How to prevent data leakage during feature engineering?
-9. Difference between binning and discretization?
-10. How to handle categorical variables with high cardinality?
-
-*Detailed answers in respective topic files*
-
-## Best Practices
-
-### ✅ DO
-- Always split data before feature engineering
-- Use cross-validation for target encoding
-- Document all transformations
-- Create reproducible pipelines (sklearn Pipeline)
-- Check feature distributions before/after
-- Test features incrementally
-
-### ❌ DON'T
-- Scale before train-test split (data leakage!)
-- Use mean of entire dataset for imputation
-- One-hot encode high cardinality variables
-- Remove outliers without understanding domain
-- Apply transformations blindly
-- Forget to save fitted transformers
-
-## Code Template: Complete Pipeline
-
-```python
-from sklearn.pipeline import Pipeline
-from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
-from sklearn.impute import SimpleImputer
-from sklearn.model_selection import train_test_split
-
-# Define feature types
-numeric_features = ['age', 'income', 'credit_score']
-categorical_features = ['city', 'employment_type']
-
-# Create transformers
-numeric_transformer = Pipeline(steps=[
-    ('imputer', SimpleImputer(strategy='median')),
-    ('scaler', StandardScaler())
-])
-
-categorical_transformer = Pipeline(steps=[
-    ('imputer', SimpleImputer(strategy='most_frequent')),
-    ('encoder', OneHotEncoder(handle_unknown='ignore'))
-])
-
-# Combine transformers
-preprocessor = ColumnTransformer(
-    transformers=[
-        ('num', numeric_transformer, numeric_features),
-        ('cat', categorical_transformer, categorical_features)
-    ])
-
-# Create full pipeline
-pipeline = Pipeline(steps=[
-    ('preprocessor', preprocessor),
-    ('classifier', RandomForestClassifier())
-])
-
-# Fit and predict (no data leakage!)
-pipeline.fit(X_train, y_train)
-predictions = pipeline.predict(X_test)
-```
-
-## Performance Comparison
-
-### Impact of Different Techniques
-
-```
-Model Performance (Accuracy %)
-────────────────────────────────────────────
-No Feature Engineering        : ████████████░░░░░░░░ 60%
-+ Missing Value Handling      : ██████████████░░░░░░ 70%
-+ Proper Encoding             : ████████████████░░░░ 78%
-+ Scaling                     : ██████████████████░░ 82%
-+ Outlier Handling            : ███████████████████░ 85%
-+ Feature Transformation      : ████████████████████ 87%
-+ Feature Construction        : █████████████████████ 92%
-────────────────────────────────────────────
-```
-
-## Tools and Libraries
-
-### Essential Libraries
-```python
-import pandas as pd                    # Data manipulation
-import numpy as np                     # Numerical operations
-from sklearn.preprocessing import *    # Scalers, encoders
-from sklearn.impute import *          # Imputers
-from category_encoders import *       # Advanced encodings
-import feature_engine                 # Feature engineering
-```
-
-### Useful Resources
-- Scikit-learn documentation
-- Feature-engine library
-- Category-encoders library
-- Kaggle feature engineering tutorials
-
-## Summary Statistics
-
-### Time Spent in ML Projects
-```
-Data Collection          : 25%
-Feature Engineering      : 40% ← Most Important!
-Model Selection          : 15%
-Hyperparameter Tuning    : 15%
-Deployment               : 5%
-```
-
-## Quick Formulas
-
-### Standard Scaler
-```
-z = (x - μ) / σ
-```
-
-### Min-Max Scaler
-```
-x_scaled = (x - x_min) / (x_max - x_min)
-```
-
-### Robust Scaler
-```
-x_scaled = (x - median) / IQR
-```
-
-### Z-Score for Outliers
-```
-z = |x - μ| / σ
-Outlier if |z| > 3
-```
-
-### IQR Method
-```
-Q1 = 25th percentile
-Q3 = 75th percentile
-IQR = Q3 - Q1
-Lower bound = Q1 - 1.5 × IQR
-Upper bound = Q3 + 1.5 × IQR
-```
-
-## Next Steps
-
-1. Start with [Encoding Techniques](./encoding-techniques.md) if you're new
-2. Jump to specific topics based on your needs
-3. Practice with real datasets
-4. Review interview questions
-5. Build end-to-end pipelines
-
----
-
-**Remember**: Good features beat fancy algorithms. Spend time understanding your data and engineering meaningful features!
-
-*Happy Learning! 🚀*
+**Previous**: [Back to Main README](../README.md)
