@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSMP 2.0 Revision Notes Viewer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Progress Bar at top -->
+    <div class="scroll-progress-container">
+        <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+        <div class="scroll-percentage" id="scrollPercentage">0%</div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>DSMP 2.0 Revision</h2>
+                <button class="stats-toggle" id="statsToggle">📊 Stats</button>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search notes...">
+            </div>
+
+            <nav class="nav-tree" id="navTree">
+                <!-- Navigation will be dynamically loaded -->
+            </nav>
+
+            <!-- Reading Progress Summary -->
+            <div class="progress-summary" id="progressSummary">
+                <h3>Reading Progress</h3>
+                <div class="progress-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Documents Read:</span>
+                        <span class="stat-value" id="docsRead">0/0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Time:</span>
+                        <span class="stat-value" id="totalTime">0m</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Current Streak:</span>
+                        <span class="stat-value" id="currentStreak">0 days</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div class="content-header">
+                <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+                <div class="breadcrumb" id="breadcrumb"></div>
+                <div class="reading-time" id="readingTime">
+                    <span class="timer">⏱️ <span id="sessionTimer">0:00</span></span>
+                </div>
+            </div>
+
+            <article class="markdown-content" id="markdownContent">
+                <div class="welcome-screen">
+                    <h1>Welcome to DSMP 2.0 Revision Notes</h1>
+                    <p>Select a topic from the sidebar to begin reading.</p>
+                    <p>Your scroll progress will be automatically tracked and saved.</p>
+                </div>
+            </article>
+
+            <!-- Scroll Position Indicator -->
+            <div class="scroll-indicator" id="scrollIndicator">
+                <div class="scroll-dot"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Analytics Dashboard Modal -->
+    <div class="modal" id="statsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📊 Reading Analytics</h2>
+                <button class="modal-close" id="modalClose">×</button>
+            </div>
+            <div class="modal-body" id="statsModalBody">
+                <!-- Stats will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.0/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark.min.css">
+
+    <!-- Application Scripts -->
+    <script src="scroll-tracker.js"></script>
+    <script src="storage-manager.js"></script>
+    <script src="analytics.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
