@@ -90,40 +90,71 @@ class Analytics {
         const recentDocs = window.storageManager.getRecentDocuments(10);
         const storageInfo = window.storageManager.getStorageInfo();
 
-        // Build analytics HTML
+        // Get goals and notes data
+        const activeGoals = window.goalsManager?.getActiveGoals() || [];
+        const notesCount = window.notesManager?.getNoteCount() || 0;
+        const bookmarksCount = window.bookmarksManager?.getBookmarkCount() || 0;
+
+        // Build analytics HTML with enhanced visualizations
         const html = `
-            <!-- Overview Cards -->
+            <!-- Overview Cards with Progress Circles -->
             <div class="analytics-grid">
                 <div class="analytics-card">
                     <h3>Documents Read</h3>
-                    <div class="value">${stats.completedDocuments}</div>
-                    <div class="subtitle">of ${stats.totalDocuments} started</div>
-                </div>
-
-                <div class="analytics-card">
-                    <h3>Completion Rate</h3>
-                    <div class="value">${stats.completionRate.toFixed(1)}%</div>
-                    <div class="subtitle">average progress</div>
+                    <div class="circle-progress" data-percent="${stats.completionRate.toFixed(0)}">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" class="circle-bg"></circle>
+                            <circle cx="50" cy="50" r="45" class="circle-fill"
+                                    style="stroke-dasharray: ${stats.completionRate * 2.827}, 282.7"></circle>
+                        </svg>
+                        <div class="circle-text">
+                            <div class="circle-value">${stats.completedDocuments}</div>
+                            <div class="circle-label">of ${stats.totalDocuments}</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="analytics-card">
                     <h3>Total Reading Time</h3>
                     <div class="value">${this.formatTimeShort(stats.totalReadingTime)}</div>
                     <div class="subtitle">${this.formatTime(stats.averageReadingTime)} avg/doc</div>
+                    <div class="mini-chart">
+                        ${this.renderTimeDistribution()}
+                    </div>
                 </div>
 
                 <div class="analytics-card">
                     <h3>Current Streak</h3>
-                    <div class="value">${stats.currentStreak}</div>
+                    <div class="value">${stats.currentStreak} 🔥</div>
                     <div class="subtitle">Longest: ${stats.longestStreak} days</div>
+                    <div class="streak-bar">
+                        <div class="streak-bar-fill" style="width: ${Math.min((stats.currentStreak / stats.longestStreak) * 100, 100)}%"></div>
+                    </div>
+                </div>
+
+                <div class="analytics-card">
+                    <h3>Phase 2 Features</h3>
+                    <div class="feature-stats">
+                        <div>📝 ${notesCount} Notes</div>
+                        <div>🔖 ${bookmarksCount} Bookmarks</div>
+                        <div>🎯 ${activeGoals.length} Active Goals</div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Category Breakdown -->
+            <!-- Category Progress Chart -->
             <div class="document-list">
                 <h3>📚 Progress by Category</h3>
-                ${this.renderCategoryBreakdown(categoryStats)}
+                ${this.renderCategoryChart(categoryStats)}
             </div>
+
+            <!-- Goals Progress -->
+            ${activeGoals.length > 0 ? `
+                <div class="document-list" style="margin-top: 30px;">
+                    <h3>🎯 Active Goals Progress</h3>
+                    ${this.renderGoalsProgress(activeGoals)}
+                </div>
+            ` : ''}
 
             <!-- Recent Documents -->
             <div class="document-list" style="margin-top: 30px;">
@@ -158,9 +189,9 @@ class Analytics {
 
             <!-- Actions -->
             <div style="margin-top: 30px; display: flex; gap: 10px; justify-content: flex-end;">
-                <button onclick="window.analytics.exportData()"
+                <button onclick="window.analytics.exportAllData()"
                         style="padding: 10px 20px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer;">
-                    📥 Export Data
+                    📥 Export All Data
                 </button>
                 <button onclick="window.analytics.clearData()"
                         style="padding: 10px 20px; background: var(--danger-color); color: white; border: none; border-radius: 6px; cursor: pointer;">
@@ -171,6 +202,88 @@ class Analytics {
 
         modalBody.innerHTML = html;
         modal.classList.add('active');
+    }
+
+    renderCategoryChart(categoryStats) {
+        const categories = Object.entries(categoryStats);
+
+        if (categories.length === 0) {
+            return `
+                <div class="document-item">
+                    <div style="text-align: center; color: var(--text-muted); padding: 20px;">
+                        No reading data yet. Start reading to see your progress!
+                    </div>
+                </div>
+            `;
+        }
+
+        // Find max for scaling
+        const maxDocs = Math.max(...categories.map(([, stats]) => stats.documentsRead || 0));
+
+        return `
+            <div class="category-chart">
+                ${categories
+                    .sort((a, b) => (b[1].documentsCompleted || 0) - (a[1].documentsCompleted || 0))
+                    .map(([category, stats]) => {
+                        const categoryName = window.storageManager.getCategoryName(category);
+                        const completion = stats.documentsRead > 0 ?
+                            (stats.documentsCompleted / stats.documentsRead) * 100 : 0;
+                        const barWidth = maxDocs > 0 ? (stats.documentsRead / maxDocs) * 100 : 0;
+
+                        return `
+                            <div class="chart-row">
+                                <div class="chart-label">${categoryName}</div>
+                                <div class="chart-bar-container">
+                                    <div class="chart-bar" style="width: ${barWidth}%">
+                                        <div class="chart-bar-fill" style="width: ${completion}%"></div>
+                                    </div>
+                                    <div class="chart-value">${stats.documentsCompleted}/${stats.documentsRead}</div>
+                                </div>
+                            </div>
+                        `;
+                    })
+                    .join('')}
+            </div>
+        `;
+    }
+
+    renderGoalsProgress(goals) {
+        return goals
+            .slice(0, 5) // Show top 5
+            .map(goal => {
+                const progress = goal.target > 0 ? (goal.progress / goal.target) * 100 : 0;
+
+                return `
+                    <div class="document-item">
+                        <div class="document-item-header">
+                            <div class="document-name">🎯 ${goal.title}</div>
+                            <div class="document-progress">${Math.min(progress, 100).toFixed(0)}%</div>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" style="width: ${Math.min(progress, 100)}%"></div>
+                        </div>
+                    </div>
+                `;
+            })
+            .join('');
+    }
+
+    renderTimeDistribution() {
+        // Simple time distribution visualization
+        const stats = window.storageManager?.getReadingStats();
+        if (!stats) return '';
+
+        const avgTime = stats.averageReadingTime;
+        const totalTime = stats.totalReadingTime;
+
+        if (totalTime === 0) return '';
+
+        return `
+            <div class="time-bars">
+                <div class="time-bar" style="height: 60%;" title="Avg Time"></div>
+                <div class="time-bar" style="height: 100%;" title="Total Time"></div>
+            </div>
+        `;
     }
 
     renderCategoryBreakdown(categoryStats) {
@@ -264,6 +377,32 @@ class Analytics {
         URL.revokeObjectURL(url);
 
         console.log('✅ Data exported successfully');
+    }
+
+    exportAllData() {
+        // Export all data including progress, notes, bookmarks, and goals
+        const allData = {
+            progress: window.storageManager?.exportData(),
+            notes: window.notesManager?.exportNotes(),
+            bookmarks: window.bookmarksManager?.exportBookmarks(),
+            goals: window.goalsManager?.exportGoals(),
+            exportedAt: Date.now(),
+            version: '2.0.0'
+        };
+
+        const dataStr = JSON.stringify(allData, null, 2);
+        const blob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `dsmp-complete-backup-${Date.now()}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        console.log('✅ Complete data exported successfully');
+        alert('All data exported successfully!\n\nIncludes: Progress, Notes, Bookmarks, and Goals');
     }
 
     clearData() {
