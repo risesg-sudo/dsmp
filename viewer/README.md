@@ -292,17 +292,72 @@ this.documentStructure = {
 3. Ensure modern browser (see compatibility)
 4. Try hard refresh (Ctrl+Shift+R)
 
+## ⚡ Phase 3 Features (Advanced Learning Tools)
+
+### 🃏 Spaced Repetition Flashcards
+- **SM-2 algorithm** for optimal retention
+- Create flashcards from any content
+- Study sessions with quality ratings
+- Review heatmap and statistics
+- Deck organization by topic
+- Quick create from text selection
+
+### ▶️ Interactive Code Execution
+- Multi-language support (Python, SQL, JavaScript)
+- Syntax highlighting editor
+- Output console with results
+- Save and load code snippets
+- Execution history tracking
+- Quick example templates
+
+### 📝 Automated Quiz Generation
+- Auto-generate from document content
+- Multiple choice, True/False, Fill-in-blank
+- Difficulty levels (Easy/Medium/Hard)
+- Timed quizzes with progress tracking
+- Score tracking and performance analytics
+- Instant feedback with explanations
+
+### 📱 Progressive Web App (PWA)
+- Install to home screen
+- Offline support via Service Worker
+- App shortcuts for quick access
+- Background sync for data persistence
+- Auto-updates with notifications
+- Native app-like experience
+
+## Architecture
+
+```
+viewer/
+├── Phase 1: Core Features
+│   ├── index.html, app.js, styles.css
+│   ├── scroll-tracker.js
+│   ├── storage-manager.js
+│   └── analytics.js
+├── Phase 2: Enhanced Learning
+│   ├── notes-manager.js
+│   ├── bookmarks-manager.js
+│   └── goals-manager.js
+└── Phase 3: Advanced Tools ⚡
+    ├── flashcards-manager.js
+    ├── code-runner.js
+    ├── quiz-manager.js
+    ├── service-worker.js
+    └── manifest.json
+```
+
 ## Future Enhancements
 
 Planned features:
+- [ ] Backend Python/SQL execution (Pyodide integration)
+- [ ] AI-powered quiz generation
 - [ ] Backend API for multi-device sync
 - [ ] User accounts and authentication
-- [ ] Reading goals and reminders
-- [ ] Note-taking and highlighting
-- [ ] Export to PDF with highlights
-- [ ] Reading recommendations
-- [ ] Mobile app versions
-- [ ] Offline PWA support
+- [ ] Advanced data visualizations
+- [ ] Collaborative study sessions
+- [ ] Export to PDF with highlights and notes
+- [ ] Voice-to-text for notes
 
 ## Contributing
 
